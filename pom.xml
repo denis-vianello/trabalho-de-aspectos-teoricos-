@@ -10,4 +10,23 @@
         <maven.compiler.target>18</maven.compiler.target>
         <exec.mainClass>com.mycompany.trabalhoaspectos.TrabalhoAspectos</exec.mainClass>
     </properties>
-</project>
+    <build>
+    <plugins>
+            <plugin>
+                    <!-- Build an executable JAR -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <configuration>
+                            <archive>
+                                    <manifest>
+                                            <addClasspath>true</addClasspath>
+                                            <!-- here we specify that we want to use the main method within the App class -->
+                                            <mainClass>com.mycompany.trabalhoaspectos.TrabalhoAspectos.TrabalhoAspectos</mainClass>
+                                    </manifest>
+                            </archive>
+                    </configuration>
+            </plugin>
+    </plugins>
+    </build>
+    </project>
