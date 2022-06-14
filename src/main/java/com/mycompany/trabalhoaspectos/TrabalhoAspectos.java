@@ -24,8 +24,9 @@ public class TrabalhoAspectos {
         String content = "deu erro";
         //System.out.println(tag);
         //System.out.println(content);
-        ArrayList<String> tags = new ArrayList<String>();
-        int x = 1, j = 1;
+        ArrayList<String> tags = new ArrayList<>();
+        ArrayList<String> definicao = new ArrayList<>();
+        int x = 1, j = 1, k = 1;
         while(x == 1){
             a = teclado.next();
             //System.out.println(a); checagem da string TIRA ISSO!!!!
@@ -58,7 +59,15 @@ public class TrabalhoAspectos {
                 }
                 // :l
                 case 108 :{
-                    System.out.println("[WARNING] funcao nao implementada");
+                    if(tags.isEmpty()){
+                        System.out.println("[WARNING] nao existem definicoes de tags na memoria");
+                    }
+                    else{
+                        for(int i = 0;i < tags.size();i ++){
+                            System.out.print(tags.get(i));
+                            System.out.println(definicao.get(i));
+                        }    
+                    }
                     break;
                 }
                 // :q
@@ -77,7 +86,7 @@ public class TrabalhoAspectos {
             }
             }else{
             tag ="";
-                if(a.contains(":")){
+                if(a.contains(": ")){
                     for(int i=0;i < a.indexOf(":");i++){
                         if(a.charAt(i) == 32){
                            System.out.println("[ERROR] a tag possui espacos antes de :");
@@ -90,15 +99,30 @@ public class TrabalhoAspectos {
                         }
                     }
                     if(j == 1){
-                    System.out.println("a tag definida e = " +tag);
-                    System.out.println("e a definicao = " + a.substring(a.indexOf(":")+1));
+                        if(tags.isEmpty()){
+                            tags.add(tag);
+                            definicao.add(a.substring(a.indexOf(":")+1));
+                        }else{
+                            for(int i = 0;i < tags.size();i ++){
+                                if(tag.equals(tags.get(i))){
+                                    System.out.println("[ERROR] uma tag com este nome ja foi definida");
+                                    k = 0;
+                                    break;
+                                }
+                            }
+                            if(k == 1){
+                               tags.add(tag);
+                               definicao.add(a.substring(a.indexOf(":")+1)); 
+                            }
+                        }
                     }
                 }
                 else{
-                    System.out.println("[ERROR] a tag nao possui :");
+                    System.out.println("[ERROR] a tag nao possui ': '");
                 } 
             }
             j = 1;
+            k = 1;
         }
         
     }
