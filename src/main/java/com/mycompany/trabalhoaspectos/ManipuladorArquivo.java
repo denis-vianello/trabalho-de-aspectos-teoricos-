@@ -8,16 +8,16 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 /**
  *
  * @author PICHAU
  */
 public class ManipuladorArquivo {
-    public static String leitor(String path) throws IOException {
+    public static void leitor(String path, ArrayList<String> content) throws IOException {
 		BufferedReader buffRead = new BufferedReader(new FileReader(path));
 		String linha = "";
-                String linhaAux = "";
 		while (true) {
 			if (linha != null) {
 				//System.out.println(linha);
@@ -26,10 +26,13 @@ public class ManipuladorArquivo {
 				break;
 			linha = buffRead.readLine();
                         if(linha != null)
-                        linhaAux += linha+"\n";
+                        {
+                            content.add(linha);
+                        }
+                        //linhaAux += linha+"\n";
 		}
 		buffRead.close();
-                return linhaAux;
+                //return linhaAux;
 	}
 
 	public static void escritor(String path,String a) throws IOException {
