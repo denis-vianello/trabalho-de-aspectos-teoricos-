@@ -5,6 +5,7 @@
 
 package com.mycompany.trabalhoaspectos;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,19 +14,50 @@ import java.util.Scanner;
  * @author PICHAU
  */
 public class TrabalhoAspectos {
+    static void deftag(ArrayList<String> tags,ArrayList<String> definicao,String a){
+        String tag = "";
+        for(int i=0;i < a.indexOf(":");i++){
+            if(a.charAt(i) == 32){
+                System.out.println("[ERROR] a tag possui espacos antes de :");
+                return;
+            }
+            else{
+            tag += a.charAt(i);
+            //System.out.println(tag); //teste de tag tira isso 
+            }
+        }
+        
+        if(tags.isEmpty()){
+            tags.add(tag);
+            definicao.add(a.substring(a.indexOf(": ")+2));
+            }else{
+                for(int i = 0;i < tags.size();i ++){
+                    if(tag.equals(tags.get(i))){
+                    System.out.println("[ERROR] uma tag com este nome ja foi definida");
+                    return;
+                    }
+                }
+                
+                tags.add(tag);
+                definicao.add(a.substring(a.indexOf(": ")+2)); 
+            } 
+        System.out.println("[INFO] A tag foi carregada");
+    }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("Digite a opcao desejada"); 
         Scanner teclado = new Scanner(System.in).useDelimiter("\n");
         //String a = "var x+y+z";
         //System.out.println(a);
         String a;
-        String tag = "";
-        String content = "deu erro";
+        String path;
+        //String content = "deu erro";
         //System.out.println(tag);
         //System.out.println(content);
-        ArrayList<String> tags = new ArrayList<String>();
-        int x = 1, j = 1;
+        ArrayList<String> tags = new ArrayList<>();
+        ArrayList<String> definicao = new ArrayList<>();
+        ArrayList<String> content = new ArrayList<>();
+        int x = 1, j = 1, k = 1;
         while(x == 1){
             a = teclado.next();
             //System.out.println(a); checagem da string TIRA ISSO!!!!
@@ -33,32 +65,55 @@ public class TrabalhoAspectos {
                 switch(a.charAt(1)){
                 // :d
                 case 100 :{
-                    //System.out.println("[WARNING] funcao nao implementada");
+                    System.out.println("[WARNING] funcao nao implementada");
                     break;
                 }
                 // :c
                 case 99 :{
-                    System.out.println("[WARNING] funcao nao implementada");
+                    path = a.substring(a.indexOf(" ")+1);
+                    try{
+                    ManipuladorArquivo.leitor(path,content);
+                    if(content.isEmpty()){
+                        System.out.println("[WARNING] nao existem definicoes de tags na memoria");
+                    }
+                    else{
+                        for(int i = 0;i < content.size();i ++){
+                            deftag(tags,definicao,content.get(i));                             
+                        }
+                        System.out.println("[INFO] As definicoes de tags foram carregadas");
+                    }
+                    }catch(Exception e){
+                        System.out.println("[ERROR] Erro ao abrir o arquivo");
+                        
+                    }
                     break;
                 }
                 // :o
                 case 111 :{
-                    //System.out.println("[WARNING] funcao nao implementada");
+                    System.out.println("[WARNING] funcao nao implementada");
                     break;
                 }
                 // :p
                 case 112 :{
-                    //System.out.println("[WARNING] funcao nao implementada");
+                    System.out.println("[WARNING] funcao nao implementada");
                     break;
                 }
                 // :a
                 case 97 :{
-                    //System.out.println("[WARNING] funcao nao implementada");
+                    System.out.println("[WARNING] funcao nao implementada");
                     break;
                 }
                 // :l
                 case 108 :{
-                    System.out.println("[WARNING] funcao nao implementada");
+                    if(tags.isEmpty()){
+                        System.out.println("[WARNING] nao existem definicoes de tags na memoria");
+                    }
+                    else{
+                        for(int i = 0;i < tags.size();i ++){
+                            System.out.print(tags.get(i) + ": ");
+                            System.out.println(definicao.get(i));
+                        }    
+                    }
                     break;
                 }
                 // :q
@@ -68,38 +123,33 @@ public class TrabalhoAspectos {
                 }
                 // :s
                 case 115 :{
-                    System.out.println("[WARNING] funcao nao implementada");
+                    path = a.substring(a.indexOf(" ")+1);
+                    if(tags.isEmpty()){
+                        System.out.println("[WARNING] Nao existem tags para serem salvas");
+                    }else{
+                        String aAux = "";
+                        for(int i = 0;i < tags.size();i++ ){
+                            a = tags.get(i)+": "+definicao.get(i);
+                            aAux += a+"\n";
+                        }
+                        ManipuladorArquivo.escritor(path,aAux);
+                        System.out.println("[INFO] As tags foram salvas");
+                    }
                     break;
                 }
                 default:
-                    System.out.println("[ERROR] comando não reconhecido");
+                    System.out.println("[ERROR] comando nao reconhecido");
                     
             }
             }else{
-            tag ="";
-                if(a.contains(":")){
-                    for(int i=0;i < a.indexOf(":");i++){
-                        if(a.charAt(i) == 32){
-                           System.out.println("[ERROR] a tag possui espacos antes de :");
-                           j = 0;
-                           break;
-                        }
-                        else{
-                            tag += a.charAt(i);
-                            System.out.println(tag);
-                        }
-                    }
-                    if(j == 1){
-                    System.out.println("a tag definida e = " +tag);
-                    System.out.println("e a definicao = " + a.substring(a.indexOf(":")+1));
-                    }
+            if(a.contains(": ")){                
+                deftag(tags,definicao,a);                        
                 }
                 else{
-                    System.out.println("[ERROR] a tag nao possui :");
+                    System.out.println("[ERROR] a tag nao possui ': '");
                 } 
             }
-            j = 1;
         }
-        
-    }
+    }//fecha o main 
+           
 }
