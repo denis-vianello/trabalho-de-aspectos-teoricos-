@@ -5,6 +5,7 @@
 
 package com.mycompany.trabalhoaspectos;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -28,7 +29,7 @@ public class TrabalhoAspectos {
         
         if(tags.isEmpty()){
             tags.add(tag);
-            definicao.add(a.substring(a.indexOf(":")+1));
+            definicao.add(a.substring(a.indexOf(": ")+2));
             }else{
                 for(int i = 0;i < tags.size();i ++){
                     if(tag.equals(tags.get(i))){
@@ -38,11 +39,11 @@ public class TrabalhoAspectos {
                 }
                 
                 tags.add(tag);
-                definicao.add(a.substring(a.indexOf(":")+1)); 
+                definicao.add(a.substring(a.indexOf(": ")+2)); 
             }   
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("Digite a opcao desejada"); 
         Scanner teclado = new Scanner(System.in).useDelimiter("\n");
         //String a = "var x+y+z";
@@ -92,7 +93,7 @@ public class TrabalhoAspectos {
                     }
                     else{
                         for(int i = 0;i < tags.size();i ++){
-                            System.out.print(tags.get(i) + ":");
+                            System.out.print(tags.get(i) + ": ");
                             System.out.println(definicao.get(i));
                         }    
                     }
@@ -105,7 +106,17 @@ public class TrabalhoAspectos {
                 }
                 // :s
                 case 115 :{
-                    System.out.println("[WARNING] funcao nao implementada");
+                    if(tags.isEmpty()){
+                        System.out.println("[WARNING] Nao existem tags para serem salvas");
+                    }else{
+                        String aAux = "";
+                        for(int i = 0;i < tags.size();i++ ){
+                            a = tags.get(i)+": "+definicao.get(i);
+                            aAux += a+"\n";
+                        }
+                        ManipuladorArquivo.escritor("teste.txt",aAux);
+                        System.out.println("[INFO] As tags foram salvas");
+                    }
                     break;
                 }
                 default:
