@@ -25,7 +25,7 @@ public class TrabalhoAspectos {
         //System.out.println(tag);
         //System.out.println(content);
         ArrayList<String> tags = new ArrayList<String>();
-        int x = 1;
+        int x = 1, j = 1;
         while(x == 1){
             a = teclado.next();
             //System.out.println(a); checagem da string TIRA ISSO!!!!
@@ -76,9 +76,29 @@ public class TrabalhoAspectos {
                     
             }
             }else{
-                
+            tag ="";
+                if(a.contains(":")){
+                    for(int i=0;i < a.indexOf(":");i++){
+                        if(a.charAt(i) == 32){
+                           System.out.println("[ERROR] a tag possui espacos antes de :");
+                           j = 0;
+                           break;
+                        }
+                        else{
+                            tag += a.charAt(i);
+                            System.out.println(tag);
+                        }
+                    }
+                    if(j == 1){
+                    System.out.println("a tag definida e = " +tag);
+                    System.out.println("e a definicao = " + a.substring(a.indexOf(":")+1));
+                    }
+                }
+                else{
+                    System.out.println("[ERROR] a tag nao possui :");
+                } 
             }
-            
+            j = 1;
         }
         
     }
