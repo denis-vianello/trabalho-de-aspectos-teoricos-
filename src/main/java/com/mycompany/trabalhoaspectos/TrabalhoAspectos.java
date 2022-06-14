@@ -13,6 +13,34 @@ import java.util.Scanner;
  * @author PICHAU
  */
 public class TrabalhoAspectos {
+    static void deftag(ArrayList<String> tags,ArrayList<String> definicao,String a){
+        String tag = "";
+        for(int i=0;i < a.indexOf(":");i++){
+            if(a.charAt(i) == 32){
+                System.out.println("[ERROR] a tag possui espacos antes de :");
+                return;
+            }
+            else{
+            tag += a.charAt(i);
+            System.out.println(tag); //teste de tag tira isso 
+            }
+        }
+        
+        if(tags.isEmpty()){
+            tags.add(tag);
+            definicao.add(a.substring(a.indexOf(":")+1));
+            }else{
+                for(int i = 0;i < tags.size();i ++){
+                    if(tag.equals(tags.get(i))){
+                    System.out.println("[ERROR] uma tag com este nome ja foi definida");
+                    return;
+                    }
+                }
+                
+                tags.add(tag);
+                definicao.add(a.substring(a.indexOf(":")+1)); 
+            }   
+    }
 
     public static void main(String[] args) {
         System.out.println("Digite a opcao desejada"); 
@@ -64,7 +92,7 @@ public class TrabalhoAspectos {
                     }
                     else{
                         for(int i = 0;i < tags.size();i ++){
-                            System.out.print(tags.get(i));
+                            System.out.print(tags.get(i) + ":");
                             System.out.println(definicao.get(i));
                         }    
                     }
@@ -81,49 +109,18 @@ public class TrabalhoAspectos {
                     break;
                 }
                 default:
-                    System.out.println("[ERROR] comando não reconhecido");
+                    System.out.println("[ERROR] comando nao reconhecido");
                     
             }
             }else{
-            tag ="";
-                if(a.contains(": ")){
-                    for(int i=0;i < a.indexOf(":");i++){
-                        if(a.charAt(i) == 32){
-                           System.out.println("[ERROR] a tag possui espacos antes de :");
-                           j = 0;
-                           break;
-                        }
-                        else{
-                            tag += a.charAt(i);
-                            System.out.println(tag);
-                        }
-                    }
-                    if(j == 1){
-                        if(tags.isEmpty()){
-                            tags.add(tag);
-                            definicao.add(a.substring(a.indexOf(":")+1));
-                        }else{
-                            for(int i = 0;i < tags.size();i ++){
-                                if(tag.equals(tags.get(i))){
-                                    System.out.println("[ERROR] uma tag com este nome ja foi definida");
-                                    k = 0;
-                                    break;
-                                }
-                            }
-                            if(k == 1){
-                               tags.add(tag);
-                               definicao.add(a.substring(a.indexOf(":")+1)); 
-                            }
-                        }
-                    }
+            if(a.contains(": ")){                
+                deftag(tags,definicao,a);                        
                 }
                 else{
                     System.out.println("[ERROR] a tag nao possui ': '");
                 } 
             }
-            j = 1;
-            k = 1;
         }
-        
-    }
+    }//fecha o main 
+           
 }
