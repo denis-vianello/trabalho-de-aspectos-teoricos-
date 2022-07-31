@@ -14,7 +14,7 @@ import java.util.Scanner;
  * @author PICHAU
  */
 public class TrabalhoAspectos {
-    static void deftag(ArrayList<String> tags,ArrayList<String> definicao,String a){
+    static void deftag(ArrayList<Tag> tags,String a){
         String tag = "";
         for(int i=0;i < a.indexOf(":");i++){
             if(a.charAt(i) == 32){
@@ -28,18 +28,20 @@ public class TrabalhoAspectos {
         }
         
         if(tags.isEmpty()){
-            tags.add(tag);
-            definicao.add(a.substring(a.indexOf(": ")+2));
+            Tag aux = new Tag();
+            aux.setId(tag);
+            aux.setDef(a.substring(a.indexOf(": ")+2));
+            tags.add(aux);
             }else{
                 for(int i = 0;i < tags.size();i ++){
-                    if(tag.equals(tags.get(i))){
+                    if(tag.equals(tags.get(i).getId())){
                     System.out.println("[ERROR] uma tag com este nome ja foi definida");
                     return;
                     }
                 }
-                
-                tags.add(tag);
-                definicao.add(a.substring(a.indexOf(": ")+2)); 
+                Tag aux = new Tag();
+                aux.setId(tag);
+                aux.setDef(a.substring(a.indexOf(": ")+2));
             } 
         System.out.println("[INFO] A tag foi carregada");
     }
@@ -54,8 +56,8 @@ public class TrabalhoAspectos {
         //String content = "deu erro";
         //System.out.println(tag);
         //System.out.println(content);
-        ArrayList<String> tags = new ArrayList<>();
-        ArrayList<String> definicao = new ArrayList<>();
+        ArrayList<Tag> tags = new ArrayList<>();
+        ///////////////ArrayList<String> definicao = new ArrayList<>();//
         ArrayList<String> content = new ArrayList<>();
         int x = 1, j = 1, k = 1;
         while(x == 1){
@@ -78,7 +80,7 @@ public class TrabalhoAspectos {
                     }
                     else{
                         for(int i = 0;i < content.size();i ++){
-                            deftag(tags,definicao,content.get(i));                             
+                            deftag(tags,content.get(i));                             
                         }
                         System.out.println("[INFO] As definicoes de tags foram carregadas");
                     }
@@ -111,7 +113,7 @@ public class TrabalhoAspectos {
                     else{
                         for(int i = 0;i < tags.size();i ++){
                             System.out.print(tags.get(i) + ": ");
-                            System.out.println(definicao.get(i));
+                            System.out.println(tags.get(i).getDef());
                         }    
                     }
                     break;
@@ -129,7 +131,7 @@ public class TrabalhoAspectos {
                     }else{
                         String aAux = "";
                         for(int i = 0;i < tags.size();i++ ){
-                            a = tags.get(i)+": "+definicao.get(i);
+                            a = tags.get(i)+": "+tags.get(i).getDef();
                             aAux += a+"\n";
                         }
                         ManipuladorArquivo.escritor(path,aAux);
@@ -143,7 +145,7 @@ public class TrabalhoAspectos {
             }
             }else{
             if(a.contains(": ")){                
-                deftag(tags,definicao,a);                        
+                deftag(tags,a);                        
                 }
                 else{
                     System.out.println("[ERROR] a tag nao possui ': '");
