@@ -8,7 +8,7 @@ package com.mycompany.trabalhoaspectos;
  *
  * @author alvar
  */
-public class Tags {
+public class Tag {
     private String id;
     private String def;
     private Automato a;
