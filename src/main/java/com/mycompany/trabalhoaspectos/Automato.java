@@ -56,6 +56,14 @@ public class Automato {
     public void setFinais(ArrayList<Integer> finais) {
         this.finais = finais;
     }
+
+    public void toAFN() {
+        return;
+    }
+
+    public void toAFD() {
+        return;
+    }
     
     
 }

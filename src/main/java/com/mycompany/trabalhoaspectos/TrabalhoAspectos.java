@@ -44,6 +44,9 @@ public class TrabalhoAspectos {
                 Tag aux = new Tag();
                 aux.setId(tag);
                 aux.setDef(a.substring(a.indexOf(": ")+2));
+                Automato automato = aux.gerarAutomato(aux.getDef());
+                aux.setA(automato);
+                tags.add(aux);
             } 
         System.out.println("[INFO] A tag foi carregada");
     }

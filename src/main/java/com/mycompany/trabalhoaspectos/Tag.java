@@ -128,6 +128,14 @@ public class Tag {
                     break;}
             }
         }
+        Automato resultado =(Automato) pilha.pop();
+        if(!pilha.isEmpty()){
+                System.out.println("[ERROR] definicao de tag invalida");
+                return null;
+        }
+        resultado.toAFN();
+        resultado.toAFD();
+        return resultado;
     }
 
     public String getId() {
