@@ -20,7 +20,7 @@ public class Tag {
         int e = 1;
         for(int i=0;i<s.length();i++){
             switch (s.charAt(i)) {
-                case '+':
+                case '+':{
                     Automato a1 = (Automato) pilha.pop();
                     Automato a2 = (Automato) pilha.pop();
                     Automato novo = new Automato();
@@ -61,18 +61,34 @@ public class Tag {
                     }
                     e++;
                     pilha.push(novo);
-                    break;
-                case '.':
+                    break;}
+                case '.':{
+                    Automato a1 = (Automato) pilha.pop();
+                    Automato a2 = (Automato) pilha.pop();
+                    Automato novo = new Automato();
+                    novo.getEstados().addAll(a2.getEstados());
+                    novo.getEstados().addAll(a1.getEstados());
+                    novo.getFinais().addAll(a1.getFinais());
+                    novo.getIniciais().addAll(a2.getIniciais());
+                    novo.getTransicoes().addAll(a2.getTransicoes());
+                    novo.getTransicoes().addAll(a1.getTransicoes());
+                    for(int j=0;j<a2.getFinais().size();j++){
+                        for(int k=0;k<a2.getFinais().size();k++){
+                        Transicao t = new Transicao();
+                        t.getSimbolos().add("\\l");
+                        t.setOrigem(a2.getFinais().get(j));
+                        t.setDestino(a1.getIniciais().get(k));
+                        novo.getTransicoes().add(t);
+                        }
+                    }
+                    pilha.push(novo);
+                    break;}
+                case '*':{
                     
                     
                     
-                    break;
-                case '*':
-                    
-                    
-                    
-                    break;
-                default:
+                    break;}
+                default:{
                     Transicao t = new Transicao();
                     Automato aux = new Automato();
                     aux.getEstados().add(e);
@@ -96,7 +112,7 @@ public class Tag {
                     }
                     aux.getTransicoes().add(t);
                     pilha.push(aux);
-                    break;
+                    break;}
             }
         }
     }
