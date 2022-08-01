@@ -84,9 +84,22 @@ public class Tag {
                     pilha.push(novo);
                     break;}
                 case '*':{
-                    
-                    
-                    
+                    Automato a1 = (Automato) pilha.pop();
+                    Automato novo = new Automato();
+                    novo.getEstados().addAll(a1.getEstados());
+                    novo.getFinais().addAll(a1.getIniciais());
+                    novo.getIniciais().addAll(a1.getIniciais());
+                    novo.getTransicoes().addAll(a1.getTransicoes());
+                    for(int j=0;j<a1.getFinais().size();j++){
+                        for(int k=0;k<a1.getFinais().size();k++){
+                        Transicao t = new Transicao();
+                        t.getSimbolos().add("\\l");
+                        t.setOrigem(a1.getFinais().get(j));
+                        t.setDestino(a1.getIniciais().get(k));
+                        novo.getTransicoes().add(t);
+                        }
+                    }
+                    pilha.push(novo);
                     break;}
                 default:{
                     Transicao t = new Transicao();
