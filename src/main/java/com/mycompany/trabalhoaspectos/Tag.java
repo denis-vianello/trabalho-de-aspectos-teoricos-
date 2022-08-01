@@ -4,6 +4,8 @@
  */
 package com.mycompany.trabalhoaspectos;
 
+import java.util.Stack;
+
 /**
  *
  * @author alvar
@@ -12,6 +14,92 @@ public class Tag {
     private String id;
     private String def;
     private Automato a;
+    
+    public Automato gerarAutomato(String s){
+        Stack pilha = new Stack();
+        int e = 1;
+        for(int i=0;i<s.length();i++){
+            switch (s.charAt(i)) {
+                case '+':
+                    Automato a1 = (Automato) pilha.pop();
+                    Automato a2 = (Automato) pilha.pop();
+                    Automato novo = new Automato();
+                    novo.getEstados().addAll(a2.getEstados());
+                    novo.getEstados().addAll(a1.getEstados());
+                    novo.getEstados().add(e);
+                    novo.getIniciais().add(e);
+                    for(int j=0;j<a1.getIniciais().size();j++){
+                        Transicao t = new Transicao();
+                        t.getSimbolos().add("\\l");
+                        t.setOrigem(e);
+                        t.setDestino(a1.getIniciais().get(j));
+                        novo.getTransicoes().add(t);
+                    }
+                    for(int j=0;j<a2.getIniciais().size();j++){
+                        Transicao t = new Transicao();
+                        t.getSimbolos().add("\\l");
+                        t.setOrigem(e);
+                        t.setDestino(a2.getIniciais().get(j));
+                        novo.getTransicoes().add(t);
+                    }
+                    e++;
+                    novo.getEstados().add(e);
+                    novo.getFinais().add(e);
+                    for(int j=0;j<a1.getFinais().size();j++){
+                        Transicao t = new Transicao();
+                        t.getSimbolos().add("\\l");
+                        t.setOrigem(a1.getFinais().get(j));
+                        t.setDestino(e);
+                        novo.getTransicoes().add(t);
+                    }
+                    for(int j=0;j<a2.getFinais().size();j++){
+                        Transicao t = new Transicao();
+                        t.getSimbolos().add("\\l");
+                        t.setOrigem(a1.getFinais().get(j));
+                        t.setDestino(e);
+                        novo.getTransicoes().add(t);
+                    }
+                    e++;
+                    pilha.push(novo);
+                    break;
+                case '.':
+                    
+                    
+                    
+                    break;
+                case '*':
+                    
+                    
+                    
+                    break;
+                default:
+                    Transicao t = new Transicao();
+                    Automato aux = new Automato();
+                    aux.getEstados().add(e);
+                    aux.getIniciais().add(e);
+                    t.setOrigem(e);
+                    e++;
+                    aux.getEstados().add(e);
+                    aux.getFinais().add(e);
+                    t.setDestino(e);
+                    e++;
+                    if(s.charAt(i) != 92){
+                        String str;
+                        str = Character.toString(s.charAt(i));
+                        t.getSimbolos().add(str);
+                    }else{
+                        String str;
+                        str = Character.toString(s.charAt(i));
+                        i++;
+                        str+=s.charAt(i);    
+                        t.getSimbolos().add(str);
+                    }
+                    aux.getTransicoes().add(t);
+                    pilha.push(aux);
+                    break;
+            }
+        }
+    }
 
     public String getId() {
         return id;

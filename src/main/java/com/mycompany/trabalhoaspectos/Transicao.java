@@ -11,23 +11,23 @@ import java.util.ArrayList;
  * @author alvar
  */
 public class Transicao {
-    private String origem;
-    private String destino;
+    private int origem;
+    private int destino;
     private ArrayList<String> simbolos;
 
-    public String getOrigem() {
+    public int getOrigem() {
         return origem;
     }
 
-    public void setOrigem(String origem) {
+    public void setOrigem(int origem) {
         this.origem = origem;
     }
 
-    public String getDestino() {
+    public int getDestino() {
         return destino;
     }
 
-    public void setDestino(String destino) {
+    public void setDestino(int destino) {
         this.destino = destino;
     }
 
