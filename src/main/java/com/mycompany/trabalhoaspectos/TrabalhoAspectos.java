@@ -107,7 +107,29 @@ public class TrabalhoAspectos {
                 }
                 // :a
                 case 97 :{
-                    System.out.println("[WARNING] funcao nao implementada");
+                    //Automato imprime = new Automato();
+                    for(Tag i : tags){
+                        System.out.print("({");
+                        for (Integer estado : i.getA().getEstados()) {
+                            System.out.print(estado+",");
+                        }
+                        System.out.print("},{");
+                        for (String alfabeto : i.getA().getAlfabeto()){
+                            System.out.print(alfabeto+",");
+                        }
+                        System.out.print("},δ,");
+                        for (Integer iniciais : i.getA().getIniciais()){
+                            System.out.print(iniciais+",");
+                        }
+                        System.out.println("{");
+                        for (Integer finais : i.getA().getFinais()){
+                            System.out.print(finais+",");
+                        }
+                        System.out.println("})");
+                        
+                        
+                    }
+                    //System.out.println("[WARNING] funcao nao implementada");
                     break;
                 }
                 // :l
