@@ -125,7 +125,8 @@ public class Automato {
         }  
     }
 
-    public void toAFD() {
+    public Automato toAFD() {
+   
     }
     
     public void fecho(ArrayList<Integer> f){
