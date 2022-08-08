@@ -106,8 +106,23 @@ public class TrabalhoAspectos {
                 switch(a.charAt(1)){
                 // :d
                 case 100 :{
-                    System.out.println("[WARNING] funcao nao implementada");
+                    path = a.substring(a.indexOf(" ")+1);
+                    try{
+                    ManipuladorArquivo.leitor(path,divarquivo);
+                    if(divarquivo.isEmpty()){
+                        System.out.println("[WARNING] nao existem coenteudo para ser dividido");
+                    }
+                    else{
+                        for(int i = 0;i < divarquivo.size();i ++){
+                            divTag(divarquivo.get(i),tags);                            
+                        }
+                    }
+                    }catch(Exception e){
+                        System.out.println("[ERROR] Erro ao abrir o arquivo");
+                        
+                    }
                     break;
+                    //System.out.println("[WARNING] funcao nao implementada");
                 }
                 // :c
                 case 99 :{
