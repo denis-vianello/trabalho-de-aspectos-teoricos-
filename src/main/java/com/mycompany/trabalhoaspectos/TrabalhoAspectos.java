@@ -43,6 +43,9 @@ public class TrabalhoAspectos {
             }
                 
         }
+        for(int i=0;i<resultado.size();i++){
+            System.out.print(resultado.get(i)+" ");
+        }
     }
     
     static void deftag(ArrayList<Tag> tags,String a){
@@ -133,7 +136,7 @@ public class TrabalhoAspectos {
                 }
                 // :p
                 case 112 :{
-                    System.out.println("[WARNING] funcao nao implementada");
+                    divTag(a,tags);
                     break;
                 }
                 // :a
