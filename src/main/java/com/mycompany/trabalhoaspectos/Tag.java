@@ -134,7 +134,6 @@ public class Tag {
                 return null;
         }
         resultado.toAFN();
-        resultado = resultado.toAFD();
         return resultado;
     }
 

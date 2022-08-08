@@ -14,6 +14,37 @@ import java.util.Scanner;
  * @author PICHAU
  */
 public class TrabalhoAspectos {
+    
+    static void divTag(String a,ArrayList<Tag> tags){
+        ArrayList<String> resultado= new ArrayList();
+        boolean reconhece = false;
+        for(int i=0;i<a.length();i++){
+            for(int j=0;j<tags.size();j++){
+                int estadoAtual;
+                for(int k=0;k<tags.get(j).getA().getIniciais().size();k++){
+                    estadoAtual = tags.get(j).getA().getIniciais().get(k);
+                    for(int l=0;l<tags.get(j).getA().getTransicoes().size();l++){
+                        if(tags.get(j).getA().getTransicoes().get(l).getOrigem()==estadoAtual){
+                            for(int x=0;x<tags.get(j).getA().getTransicoes().get(l).getSimbolos().size();x++){
+                                if(tags.get(j).getA().getTransicoes().get(l).getSimbolos().get(x).equals(a)){
+                                    estadoAtual = tags.get(j).getA().getTransicoes().get(l).getDestino();
+                                    for(int y=0;y<tags.get(j).getA().getFinais().size();y++){
+                                        if(tags.get(j).getA().getFinais().get(y)==estadoAtual){
+                                            resultado.add(tags.get(j).getId());
+                                            reconhece = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+                
+        }
+    }
+    
     static void deftag(ArrayList<Tag> tags,String a){
         String tag = "";
         for(int i=0;i < a.indexOf(":");i++){

@@ -124,10 +124,6 @@ public class Automato {
             }
         }  
     }
-
-    public Automato toAFD() {
-   
-    }
     
     public void fecho(ArrayList<Integer> f){
         for(int i = 0;i<f.size();i++){
